@@ -41,7 +41,9 @@ function createMockBackend() {
   return vi.fn(async (url, options = {}) => {
     const method = options.method || "GET";
     const requestUrl = String(url);
-    const pathname = new URL(requestUrl).pathname;
+    const pathname = requestUrl.startsWith("http")
+      ? new URL(requestUrl).pathname
+      : requestUrl;
 
     if (pathname === "/health" && method === "GET") {
       return createJsonResponse({
