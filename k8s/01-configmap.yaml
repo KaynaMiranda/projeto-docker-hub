@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: filehub-config
+  namespace: filehub
+data:
+  NODE_ENV: "production"
+  PORT: "3000"
+  CORS_ORIGIN: "*"
+  AI_PROVIDER: "mock"
+  STORAGE_DIR: "/app/uploads"
+  FILES_REPOSITORY_MODE: "prisma"

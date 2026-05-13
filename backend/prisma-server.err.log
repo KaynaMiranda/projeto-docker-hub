@@ -1,0 +1,204 @@
+=3001 : O termo '=3001' n∆o Ç reconhecido como nome de cmdlet, funá∆o, arquivo de script ou programa oper†vel. 
+Verifique a grafia do nome ou, se um caminho tiver sido inclu°do, veja se o caminho est† correto e tente novamente.
+No linha:1 caractere:1
++ ='3001'; ='prisma'; ='postgresql://postgres:postgres@localhost:5432/f ...
++ ~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (=3001:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=prisma : O termo '=prisma' n∆o Ç reconhecido como nome de cmdlet, funá∆o, arquivo de script ou programa oper†vel. 
+Verifique a grafia do nome ou, se um caminho tiver sido inclu°do, veja se o caminho est† correto e tente novamente.
+No linha:1 caractere:10
++ ='3001'; ='prisma'; ='postgresql://postgres:postgres@localhost:5432/f ...
++          ~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (=prisma:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=postgresql://postgres:postgres@localhost:5432/filehub?schema=public : O termo 
+'=postgresql://postgres:postgres@localhost:5432/filehub?schema=public' n∆o Ç reconhecido como nome de cmdlet, funá∆o, 
+arquivo de script ou programa oper†vel. Verifique a grafia do nome ou, se um caminho tiver sido inclu°do, veja se o 
+caminho est† correto e tente novamente.
+No linha:1 caractere:21
++ ...  ='prisma'; ='postgresql://postgres:postgres@localhost:5432/filehub?s ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (=postgresql://p...b?schema=public:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=../uploads : O termo '=../uploads' n∆o Ç reconhecido como nome de cmdlet, funá∆o, arquivo de script ou programa 
+oper†vel. Verifique a grafia do nome ou, se um caminho tiver sido inclu°do, veja se o caminho est† correto e tente 
+novamente.
+No linha:1 caractere:93
++ ... postgres@localhost:5432/filehub?schema=public'; ='../uploads'; ='http ...
++                                                     ~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (=../uploads:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=http://localhost:5173 : O termo '=http://localhost:5173' n∆o Ç reconhecido como nome de cmdlet, funá∆o, arquivo de 
+script ou programa oper†vel. Verifique a grafia do nome ou, se um caminho tiver sido inclu°do, veja se o caminho est† 
+correto e tente novamente.
+No linha:1 caractere:108
++ ... lehub?schema=public'; ='../uploads'; ='http://localhost:5173'; npm.cm ...
++                                          ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (=http://localhost:5173:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+node:events:486
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 0.0.0.0:3000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at node:net:2206:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1976:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '0.0.0.0',
+  port: 3000
+}
+
+Node.js v24.13.1
+node:internal/modules/esm/resolve:275
+    throw new ERR_MODULE_NOT_FOUND(
+          ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'C:\ws-js\projeto-docker-hub\backend\src\modules\ai\ai-results.routes.js' imported from C:\ws-js\projeto-docker-hub\backend\src\app.js
+    at finalizeResolution (node:internal/modules/esm/resolve:275:11)
+    at moduleResolve (node:internal/modules/esm/resolve:866:10)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:719:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:736:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:765:52)
+    at #resolve (node:internal/modules/esm/loader:701:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:621:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:160:33)
+    at ModuleJob.link (node:internal/modules/esm/module_job:245:17) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///C:/ws-js/projeto-docker-hub/backend/src/modules/ai/ai-results.routes.js'
+}
+
+Node.js v24.13.1
+node:internal/modules/esm/resolve:275
+    throw new ERR_MODULE_NOT_FOUND(
+          ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'C:\ws-js\projeto-docker-hub\backend\src\modules\ai\ai-results.routes.js' imported from C:\ws-js\projeto-docker-hub\backend\src\app.js
+    at finalizeResolution (node:internal/modules/esm/resolve:275:11)
+    at moduleResolve (node:internal/modules/esm/resolve:866:10)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:719:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:736:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:765:52)
+    at #resolve (node:internal/modules/esm/loader:701:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:621:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:160:33)
+    at ModuleJob.link (node:internal/modules/esm/module_job:245:17) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///C:/ws-js/projeto-docker-hub/backend/src/modules/ai/ai-results.routes.js'
+}
+
+Node.js v24.13.1
+node:internal/modules/esm/resolve:275
+    throw new ERR_MODULE_NOT_FOUND(
+          ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'C:\ws-js\projeto-docker-hub\backend\src\modules\ai\file-ai.routes.js' imported from C:\ws-js\projeto-docker-hub\backend\src\app.js
+    at finalizeResolution (node:internal/modules/esm/resolve:275:11)
+    at moduleResolve (node:internal/modules/esm/resolve:866:10)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:719:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:736:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:765:52)
+    at #resolve (node:internal/modules/esm/loader:701:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:621:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:160:33)
+    at ModuleJob.link (node:internal/modules/esm/module_job:245:17) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///C:/ws-js/projeto-docker-hub/backend/src/modules/ai/file-ai.routes.js'
+}
+
+Node.js v24.13.1
+node:internal/modules/esm/resolve:275
+    throw new ERR_MODULE_NOT_FOUND(
+          ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'C:\ws-js\projeto-docker-hub\backend\src\modules\ai\file-ai.routes.js' imported from C:\ws-js\projeto-docker-hub\backend\src\app.js
+    at finalizeResolution (node:internal/modules/esm/resolve:275:11)
+    at moduleResolve (node:internal/modules/esm/resolve:866:10)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:719:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:736:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:765:52)
+    at #resolve (node:internal/modules/esm/loader:701:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:621:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:160:33)
+    at ModuleJob.link (node:internal/modules/esm/module_job:245:17) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///C:/ws-js/projeto-docker-hub/backend/src/modules/ai/file-ai.routes.js'
+}
+
+Node.js v24.13.1
+node:internal/modules/esm/resolve:275
+    throw new ERR_MODULE_NOT_FOUND(
+          ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'C:\ws-js\projeto-docker-hub\backend\src\modules\ai\file-ai.routes.js' imported from C:\ws-js\projeto-docker-hub\backend\src\app.js
+    at finalizeResolution (node:internal/modules/esm/resolve:275:11)
+    at moduleResolve (node:internal/modules/esm/resolve:866:10)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:719:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:736:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:765:52)
+    at #resolve (node:internal/modules/esm/loader:701:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:621:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:160:33)
+    at ModuleJob.link (node:internal/modules/esm/module_job:245:17) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///C:/ws-js/projeto-docker-hub/backend/src/modules/ai/file-ai.routes.js'
+}
+
+Node.js v24.13.1
+node:events:486
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 0.0.0.0:3000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at node:net:2206:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1976:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '0.0.0.0',
+  port: 3000
+}
+
+Node.js v24.13.1
+node:events:486
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 0.0.0.0:3000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at node:net:2206:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1976:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '0.0.0.0',
+  port: 3000
+}
+
+Node.js v24.13.1

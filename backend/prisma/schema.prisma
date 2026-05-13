@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model File {
+  id             String     @id @default(cuid())
+  originalName   String
+  storedName     String
+  path           String
+  mimeType       String?
+  size           Int
+  contentPreview String?
+  extractedText  String?    @map("extracted_text")
+  processingStatus ProcessingStatus @default(IDLE)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  shares         Share[]
+  aiResults      AIResult[]
+}
+
+model Share {
+  id            String   @id @default(cuid())
+  fileId        String
+  token         String   @unique
+  allowDownload Boolean  @default(true)
+  allowView     Boolean  @default(true)
+  expiresAt     DateTime?
+  createdAt     DateTime @default(now())
+  file          File     @relation(fields: [fileId], references: [id], onDelete: Cascade)
+}
+
+model AIResult {
+  id            String   @id @default(cuid())
+  fileId        String
+  type          AIResultType
+  status        AIResultStatus @default(PENDING)
+  promptVersion String?
+  resultText    String?
+  metadataJson  Json?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  file          File     @relation(fields: [fileId], references: [id], onDelete: Cascade)
+}
+
+enum AIResultType {
+  SUMMARY
+  TASKS
+  UNIVERSITY_WORK
+}
+
+enum AIResultStatus {
+  PENDING
+  DONE
+  ERROR
+}
+
+enum ProcessingStatus {
+  IDLE
+  PROCESSING
+  DONE
+  ERROR
+}
