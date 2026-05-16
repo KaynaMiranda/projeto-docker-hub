@@ -1,0 +1,63 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: filehub-db
+    environment:
+      POSTGRES_DB: filehub
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - filehub-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d filehub"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  backend:
+    image: kaynamiranda/filehub-backend:latest
+    container_name: filehub-backend
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/filehub?schema=public
+      CORS_ORIGIN: http://localhost
+      AI_PROVIDER: mock
+    ports:
+      - "3000:3000"
+    volumes:
+      - uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - filehub-net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3000/health >/dev/null 2>&1"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  frontend:
+    image: kaynamiranda/filehub-frontend:latest
+    container_name: filehub-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - filehub-net
+
+volumes:
+  postgres_data:
+  uploads:
+
+networks:
+  filehub-net:
+    driver: bridge

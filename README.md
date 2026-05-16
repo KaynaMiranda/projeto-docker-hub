@@ -1,151 +1,208 @@
-# File Hub Distribuido
+# File Hub Distribuído
 
-Projeto full stack para upload, visualizacao, edicao, download, compartilhamento e processamento de arquivos `.txt`, com arquitetura baseada em containers Docker.
+Sistema full stack para upload, visualização, edição, download, compartilhamento e processamento de arquivos por inteligência artificial. Tudo rodando em containers Docker.
 
-## Fase 1
+## Funcionalidades
 
-Esta fase entrega:
+| Funcionalidade | Descrição |
+|---|---|
+| Upload | Envie arquivos `.txt`, `.csv`, `.json`, `.md`, `.pdf`, `.docx`, `.xlsx` e mais |
+| Listagem | Visualize todos os arquivos com filtro por nome em tempo real |
+| Visualização | Abra o arquivo em uma nova aba ou veja o conteúdo no próprio sistema |
+| Edição | Edite o conteúdo do arquivo diretamente na interface com suporte a desfazer |
+| Download | Baixe o arquivo original com um clique |
+| Compartilhamento | Gere links compartilháveis com token UUID |
+| IA (mock) | Gere resumo, tarefas e trabalhos universitários a partir do conteúdo |
+| Multi-formato | Suporte a PDF, DOCX, XLSX, TXT, CSV, JSON, MD, XML, LOG, YAML |
 
-- estrutura inicial do monorepo
-- `frontend` em React + Vite
-- `backend` em Node.js + Express
-- `database` em PostgreSQL
-- volume local para armazenamento de uploads
-- `docker-compose.yml` para orquestracao dos servicos
+## Quick start
 
-## Servicos
-
-- Frontend: `http://localhost:5173`
-- Backend: `http://localhost:3000`
-- PostgreSQL: `localhost:5434`
-
-## Como subir
-
-Requisito: Docker Desktop (Engine) em execucao.
+Requisito: **Docker** instalado e rodando.
 
 ```bash
+# 1. Baixe o projeto
+git clone https://github.com/KaynaMiranda/projeto-docker-hub.git
+cd projeto-docker-hub
+
+# 2. Suba o sistema (as imagens são baixadas do Docker Hub)
+docker compose -f docker-compose.hub.yml up
+
+# 3. Abra no navegador
+http://localhost
+```
+
+O sistema sobe com 3 containers:
+
+| Serviço | Acesso | Descrição |
+|---|---|---|
+| Frontend | http://localhost | Interface web React |
+| Backend | http://localhost:3000 | API REST Node.js/Express |
+| Banco | localhost:5434 | PostgreSQL 16 |
+
+Para subir em segundo plano:
+
+```bash
+docker compose -f docker-compose.hub.yml up -d
+```
+
+Para parar:
+
+```bash
+docker compose -f docker-compose.hub.yml down
+```
+
+Para parar e apagar os dados do banco:
+
+```bash
+docker compose -f docker-compose.hub.yml down -v
+```
+
+## Como usar
+
+### Upload de arquivos
+
+1. Na tela inicial, clique em **"Selecionar arquivos"**
+2. Escolha um ou mais arquivos
+3. Clique em **"Fazer upload"**
+4. O arquivo aparece na lista lateral
+
+### Visualizar e editar
+
+1. Clique em um arquivo na lista lateral
+2. O conteúdo aparece no editor principal
+3. Edite o texto e clique em **"Salvar alterações"**
+4. Use **"Visualizar"** para abrir em nova aba
+5. Use **"Download"** para baixar o arquivo
+
+### Compartilhar
+
+1. Selecione um arquivo
+2. Na seção de compartilhamento, clique em **"Gerar link"**
+3. Copie o link gerado e envie para quem quiser
+4. O link pode permitir visualização e/ou download
+
+### Inteligência Artificial
+
+1. Selecione um arquivo com conteúdo textual
+2. Clique em **"Gerar resumo"**, **"Gerar tarefas"** ou **"Gerar trabalho"**
+3. O resultado aparece na seção de IA
+4. Clique em **"Abrir e editar"** para modificar o resultado
+
+> O provider de IA atual é **mock** — processa o texto localmente sem chamar APIs externas. Para integração com IA real (ex: Anthropic Claude), veja o guia em `docs/desenvolvimento.md`.
+
+## Imagens no Docker Hub
+
+As imagens pré-buildadas estão disponíveis no Docker Hub:
+
+- [kaynamiranda/filehub-backend](https://hub.docker.com/r/kaynamiranda/filehub-backend)
+- [kaynamiranda/filehub-frontend](https://hub.docker.com/r/kaynamiranda/filehub-frontend)
+
+## Para desenvolvedores
+
+### Build local
+
+```bash
+# Subir com build das imagens (modo desenvolvimento)
 docker compose up --build
+
+# Frontend em: http://localhost:5173
+# Backend em: http://localhost:3000
 ```
 
-Se quiser subir em background:
+O modo desenvolvimento usa hot-reload — alterações no código são refletidas automaticamente.
+
+### Testes
 
 ```bash
-docker compose up -d --build
+# Backend (35 testes)
+cd backend
+npm install
+npm test
+
+# Frontend (16 testes)
+cd frontend
+npm install
+npm test
 ```
 
-O container do `backend` aguarda o Postgres ficar pronto e executa `prisma migrate deploy` automaticamente antes de iniciar o servidor.
-
-### Troubleshooting (Windows)
-
-- Erro `The system cannot find the file specified` com `dockerDesktopLinuxEngine`: o Docker Engine nao esta rodando. Abra o Docker Desktop e aguarde ele ficar `Running`, depois tente novamente.
-- Aviso `Access is denied` ao ler `C:\Users\<user>\.docker\config.json`: normalmente e permissao do arquivo/pasta `.docker`. Ajuste as permissoes para seu usuario (ou execute o Docker Desktop com o usuario correto) e reabra o terminal.
-
-## Como testar a API sem Docker
-
-Se o Docker nao estiver ativo, o backend pode rodar em modo local com repositorio em memoria para validar upload, listagem, visualizacao e download.
-
-1. Instale as dependencias do backend:
+### Sem Docker (apenas backend)
 
 ```bash
 cd backend
 npm install
-```
 
-2. Crie o arquivo `.env` com base no exemplo e ajuste:
-
-```env
-PORT=3000
-STORAGE_DIR=../uploads
-CORS_ORIGIN=http://localhost:5173
-FILES_REPOSITORY_MODE=memory
-```
-
-Para testar localmente com PostgreSQL real:
-
-```env
-PORT=3000
-DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:5434/filehub?schema=public
-STORAGE_DIR=../uploads
-CORS_ORIGIN=http://localhost:5173
-FILES_REPOSITORY_MODE=prisma
-```
-
-3. Suba o backend:
-
-```bash
+# Modo memória (sem banco de dados)
+cp .env.example .env
 npm run dev
 ```
 
-4. Teste a API com um cliente HTTP ou PowerShell:
+### Estrutura do projeto
 
-```powershell
-Invoke-RestMethod -Uri http://localhost:3000/health -Method Get
+```
+projeto-docker-hub/
+├── backend/          # API Node.js + Express + Prisma
+├── frontend/         # Interface React + Vite
+├── docs/             # Documentação detalhada
+├── uploads/          # Arquivos enviados
+├── docker-compose.yml        # Dev (build local)
+├── docker-compose.hub.yml    # Produção (Docker Hub)
+└── README.md
 ```
 
-```powershell
-Invoke-RestMethod -Uri http://localhost:3000/files -Method Get
+Documentação técnica completa em `docs/`:
+
+| Arquivo | Conteúdo |
+|---|---|
+| `docs/arquitetura.md` | Arquitetura, fluxo de inicialização, estrutura de pastas |
+| `docs/api.md` | Referência completa da API REST |
+| `docs/banco.md` | Modelos do banco, migrations, enums |
+| `docs/desenvolvimento.md` | Setup local, testes, convenções de código, como adicionar provider de IA |
+| `docs/contexto.md` | Contexto acadêmico e decisões de design |
+
+## Arquitetura
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                   rede Docker: filehub-net               │
+│                                                          │
+│  ┌──────────────┐   proxy nginx    ┌──────────────────┐  │
+│  │   frontend   │ ───────────────► │     backend      │  │
+│  │   nginx      │   /files, etc.   │  Node.js+Express │  │
+│  │   :80        │                  │    :3000         │  │
+│  └──────────────┘                  └────────┬─────────┘  │
+│                                             │ Prisma      │
+│                                             │ :5432       │
+│                                    ┌────────▼─────────┐  │
+│                                    │       db         │  │
+│                                    │   PostgreSQL 16  │  │
+│                                    │    :5432         │  │
+│                                    └──────────────────┘  │
+└─────────────────────────────────────────────────────────┘
 ```
 
-Para upload via PowerShell, a forma mais simples e usar Postman, Insomnia ou o frontend quando ele estiver pronto.
+3 volumes: `postgres_data` (banco), `uploads` (arquivos enviados).
+1 rede interna: `filehub-net` (bridge).
 
-Para editar o conteudo de um arquivo `.txt`:
+## Troubleshooting
 
-```powershell
-$body = @{ content = "Novo conteudo do arquivo" } | ConvertTo-Json
-Invoke-RestMethod -Uri http://localhost:3000/files/SEU_ID/content -Method Put -ContentType "application/json" -Body $body
+### Docker Engine não está rodando
+
+Erro: `The system cannot find the file specified` ou `Cannot connect to the Docker daemon`.
+
+Abra o Docker Desktop e aguarde o status ficar `Running`.
+
+### Porta 80 já está em uso
+
+Edite o `docker-compose.hub.yml` e altere a porta do frontend:
+
+```yaml
+frontend:
+  ports:
+    - "8080:80"  # muda de 80 para 8080
 ```
 
-Para criar um link compartilhado:
+Depois acesse http://localhost:8080.
 
-```powershell
-Invoke-RestMethod -Uri http://localhost:3000/files/SEU_ID/share -Method Post -ContentType "application/json" -Body "{}"
-```
+### Erro de permissão no Windows
 
-Para abrir um arquivo compartilhado:
-
-```powershell
-Invoke-RestMethod -Uri http://localhost:3000/shares/SEU_TOKEN -Method Get
-```
-
-Para baixar via link compartilhado:
-
-```powershell
-curl.exe -s http://localhost:3000/shares/SEU_TOKEN/download
-```
-
-Para gerar um resumo com o provider local de IA:
-
-```powershell
-Invoke-RestMethod -Uri http://localhost:3000/files/SEU_ID/ai/summary -Method Post
-```
-
-Para gerar tarefas:
-
-```powershell
-Invoke-RestMethod -Uri http://localhost:3000/files/SEU_ID/ai/tasks -Method Post
-```
-
-Para gerar um enunciado de trabalho universitario:
-
-```powershell
-Invoke-RestMethod -Uri http://localhost:3000/files/SEU_ID/ai/university-work -Method Post
-```
-
-Para listar resultados de IA de um arquivo:
-
-```powershell
-Invoke-RestMethod -Uri http://localhost:3000/files/SEU_ID/ai/results -Method Get
-```
-
-Para consultar um resultado especifico:
-
-```powershell
-Invoke-RestMethod -Uri http://localhost:3000/ai-results/SEU_RESULTADO_ID -Method Get
-```
-
-## Proximas fases
-
-- modelagem final e migracoes do banco
-- endpoints de arquivos
-- compartilhamento por token
-- integracao de IA isolada no backend
+Se aparecer `Access is denied` ao ler `.docker/config.json`, execute o Docker Desktop como administrador ou ajuste as permissões da pasta `.docker`.
