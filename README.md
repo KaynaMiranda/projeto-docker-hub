@@ -15,20 +15,74 @@ Sistema full stack para upload, visualização, edição, download, compartilham
 | IA (mock) | Gere resumo, tarefas e trabalhos universitários a partir do conteúdo |
 | Multi-formato | Suporte a PDF, DOCX, XLSX, TXT, CSV, JSON, MD, XML, LOG, YAML |
 
-## Quick start
+## Quick start (recomendado)
 
 Requisito: **Docker** instalado e rodando.
 
+### Opção 1 — Usar as imagens sem baixar o projeto
+
+Crie um arquivo `docker-compose.yml` em qualquer pasta com este conteúdo:
+
+```yaml
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: filehub
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d filehub"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  backend:
+    image: kaynamiranda/filehub-backend:latest
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/filehub?schema=public
+      CORS_ORIGIN: http://localhost
+    volumes:
+      - uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: wget -qO- http://127.0.0.1:3000/health >/dev/null 2>&1
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  frontend:
+    image: kaynamiranda/filehub-frontend:latest
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_started
+    restart: always
+
+volumes:
+  postgres_data:
+  uploads:
+```
+
+Depois execute na mesma pasta:
+
 ```bash
-# 1. Baixe o projeto
+docker compose up
+# Abra http://localhost
+```
+
+### Opção 2 — Clonar o repositório
+
+```bash
 git clone https://github.com/KaynaMiranda/projeto-docker-hub.git
 cd projeto-docker-hub
-
-# 2. Suba o sistema (as imagens são baixadas do Docker Hub)
 docker compose -f docker-compose.hub.yml up
-
-# 3. Abra no navegador
-http://localhost
 ```
 
 O sistema sobe com 3 containers:
